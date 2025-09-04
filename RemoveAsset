@@ -1,0 +1,74 @@
+using System;
+using System.IO;
+using User_Stories;
+
+namespace Edit_userStory
+{
+    public class RemoveAsset {
+
+        public bool void check(Asset a) {
+            potrfolio p;
+        foreach(Asset asset in p.assets) {
+            if(a.value == asset.value && a.name == asset.name) {
+                return true;
+            }
+        } 
+        return false;
+        }
+   public static void menu_remove()
+            {
+        potrfolio p = new potrfolio();
+        string c;
+        do { 
+        Asset a = new Asset();
+        Console.WriteLine("=== Remove Assets ===");
+        Console.WriteLine("Select Asset Type:\n1. Stocks\n2. Real Estate\n3. Crypto\n4. Gold\nChoice: ");
+        int ch = Convert.ToInt32(Console.ReadLine());
+
+        switch (ch)
+        {
+            case 1:
+                a.type = "Stock";
+                break;
+            case 2:
+                a.type = "Real Estate";
+             break;
+            case 3:
+                a.type = "Crypto";
+                break;
+            case 4:
+                a.type = "Gold";
+                break;
+            default:
+                Console.WriteLine("please choose a valid number;");
+              break;
+        }
+        Console.WriteLine("Enter asset name :");
+        a.name = Console.ReadLine();
+
+        Console.WriteLine("Enter asset val :");
+
+        if (!double.TryParse(Console.ReadLine(), out double value) || value <= 0)
+        {
+            Console.WriteLine("invalid value");
+            return;
+        }
+        
+        a.val = value; 
+        if(check(a)) {
+            p.remove_asset(a);
+            p.display();
+        }
+        else {
+            Console.writeLine("Invalid information!")
+        }
+        Console.Write("Do you want to remove another asset? (y/n): ");
+        c = Console.ReadLine().ToLower();
+
+          } while (c == "y");
+
+    }
+    
+}
+}
+
